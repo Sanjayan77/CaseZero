@@ -1,6 +1,8 @@
 import React from 'react';
 import { RainCanvas } from '../components/RainCanvas';
 import { Shield, Search, MessageSquare, Network, Scale, ChevronRight, Play, Eye } from 'lucide-react';
+import { SupportChatWidget } from '../components/SupportChatWidget';
+
 
 interface LandingPageProps {
   onStartDemo: () => void;
@@ -171,10 +173,43 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-[#2B303A] bg-[#090A0D] py-8 text-center text-xs text-[#656C7A] font-mono-forensic">
+      {/* Footer with Website Links */}
+      <footer className="border-t border-[#2B303A] bg-[#090A0D] py-8 px-6 text-center text-xs text-[#656C7A] font-mono-forensic">
+        <div className="flex flex-wrap items-center justify-center gap-6 mb-4">
+          <button
+            onClick={() => onNavigate('faq')}
+            className="text-[#D5AA63] hover:underline cursor-pointer"
+          >
+            SQL FAQ Knowledge Base
+          </button>
+          <span>•</span>
+          <button
+            onClick={() => onNavigate('support')}
+            className="text-[#8E92A4] hover:text-[#D5AA63] cursor-pointer"
+          >
+            System Health & Diagnostics
+          </button>
+          <span>•</span>
+          <button
+            onClick={() => onNavigate('notfound')}
+            className="text-[#8E92A4] hover:text-[#D5AA63] cursor-pointer"
+          >
+            404 Error Preview
+          </button>
+          <span>•</span>
+          <button
+            onClick={() => onNavigate('servererror')}
+            className="text-[#8E92A4] hover:text-[#D5AA63] cursor-pointer"
+          >
+            500 Error Preview
+          </button>
+        </div>
         <p>CASEZERO INVESTIGATION ARCHITECTURE • FULL-STACK AI MYSTERY ENGINE</p>
       </footer>
+
+      {/* Floating Website Support Assistant Widget */}
+      <SupportChatWidget />
     </div>
   );
 };
+

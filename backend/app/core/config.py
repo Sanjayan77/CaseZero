@@ -34,6 +34,9 @@ class Settings(BaseModel):
     AI_PROVIDER: str = os.getenv("AI_PROVIDER", "gemini")  # gemini | openai | auto
     AI_BASE_URL: Optional[str] = os.getenv("AI_BASE_URL", None)
     FRONTEND_ORIGIN: str = os.getenv("FRONTEND_ORIGIN", "http://localhost:5173")
+    MONGODB_URI: str = os.getenv("MONGODB_URI", "mongodb://localhost:27017")
+    MONGODB_DB_NAME: str = os.getenv("MONGODB_DB_NAME", "casezero_support")
+    WEATHER_API_TIMEOUT: float = float(os.getenv("WEATHER_API_TIMEOUT", "3.0"))
 
 settings = Settings()
 

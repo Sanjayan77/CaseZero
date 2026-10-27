@@ -137,6 +137,24 @@ export const TopBar: React.FC<TopBarProps> = ({
           <span className="hidden sm:inline">Handbook</span>
         </button>
 
+        {/* Website FAQ & Support Portal Links */}
+        <button
+          onClick={() => onNavigate('faq')}
+          title="Open SQL FAQ Knowledge Base"
+          className="flex items-center space-x-1 px-2 py-1.5 rounded-lg bg-[#151922] hover:bg-[#1B202A] border border-[#2B303A] hover:border-[#D5AA63]/50 text-xs font-mono-forensic text-[#D5AA63] transition-colors cursor-pointer"
+        >
+          <span>FAQ</span>
+        </button>
+
+        <button
+          onClick={() => onNavigate('support')}
+          title="Open System Health & Support Portal"
+          className="flex items-center space-x-1 px-2 py-1.5 rounded-lg bg-[#151922] hover:bg-[#1B202A] border border-[#2B303A] hover:border-[#D5AA63]/50 text-xs font-mono-forensic text-[#8E92A4] hover:text-[#D5AA63] transition-colors cursor-pointer"
+        >
+          <span className="hidden sm:inline">Support</span>
+        </button>
+
+
         {user ? (
           <div className="flex items-center space-x-2.5">
             <div className="text-right hidden sm:block">

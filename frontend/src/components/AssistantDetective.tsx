@@ -39,12 +39,13 @@ export const AssistantDetective: React.FC<AssistantDetectiveProps> = ({
       id: 'welcome',
       role: 'assistant',
       content:
-        'Greetings, Detective. I am your Assistant Detective partner for Case CZ-001. Ask me to summarise our discovered evidence, highlight case contradictions, or examine suspect alibis.',
+        'Greetings, Detective. I am Sherlock Holmes (Assistant Detective) for Case CZ-001. Ask me to summarise our discovered evidence, highlight case contradictions, or examine suspect alibis.',
       isRealAi: true,
       timestamp: 'Case Briefing Active',
     },
   ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
 
   // Quick Action Chips
   const quickActions = [
@@ -122,23 +123,25 @@ export const AssistantDetective: React.FC<AssistantDetectiveProps> = ({
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end">
+    <div className="fixed bottom-4 sm:bottom-5 left-4 sm:left-5 z-40 flex flex-col items-start pointer-events-none">
       {/* Compact Chat Panel */}
       {isOpen && (
         <div
-          className="mb-3 w-80 sm:w-96 max-h-[520px] h-[500px] bg-[#101218] border border-[#2B303A] rounded-xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200"
+          className="pointer-events-auto mb-2 sm:mb-3 w-[calc(100vw-2rem)] sm:w-96 max-h-[calc(100vh-5.5rem)] sm:max-h-[520px] h-[500px] bg-[#101218] border border-[#2B303A] rounded-xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200"
           style={{ backdropFilter: 'blur(16px)' }}
         >
+
           {/* Header */}
           <div className="px-4 py-3 bg-[#151922] border-b border-[#2B303A] flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="w-7 h-7 rounded-lg bg-[#D5AA63]/15 border border-[#D5AA63]/30 flex items-center justify-center text-[#D5AA63]">
-                <Bot className="w-4 h-4" />
+            <div className="flex items-center space-x-2.5">
+              <div className="w-7 h-7 rounded-lg bg-[#D5AA63]/15 border border-[#D5AA63]/30 flex items-center justify-center text-sm shadow-inner">
+                <span role="img" aria-label="detective">🕵️</span>
               </div>
               <div>
                 <div className="flex items-center space-x-1.5">
-                  <h3 className="font-serif-noir text-sm font-bold text-[#F0F0F2]">
-                    Assistant Detective
+                  <h3 className="font-serif-noir text-sm font-bold text-[#F0F0F2] flex items-center gap-1.5">
+                    <span>🕵️</span>
+                    <span>Sherlock Holmes (Assistant Detective)</span>
                   </h3>
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 </div>
@@ -182,7 +185,7 @@ export const AssistantDetective: React.FC<AssistantDetectiveProps> = ({
                 >
                   <div className="flex items-center space-x-1 mb-1 px-1">
                     <span className="text-[9px] font-mono-forensic text-[#656C7A]">
-                      {isUser ? 'You' : 'Assistant Detective'}
+                      {isUser ? 'You' : 'Sherlock Holmes (Assistant Detective)'}
                     </span>
                     <span className="text-[9px] font-mono-forensic text-[#656C7A]">
                       • {m.timestamp}
@@ -240,8 +243,8 @@ export const AssistantDetective: React.FC<AssistantDetectiveProps> = ({
 
             {loading && (
               <div className="flex items-start space-x-2 p-2 text-xs font-mono-forensic text-[#D5AA63]">
-                <Bot className="w-4 h-4 animate-spin text-[#D5AA63]" />
-                <span>Assistant Detective is cross-referencing case files...</span>
+                <span className="text-sm">🕵️</span>
+                <span>Sherlock Holmes is cross-referencing case files...</span>
               </div>
             )}
             <div ref={messagesEndRef} />
@@ -278,14 +281,14 @@ export const AssistantDetective: React.FC<AssistantDetectiveProps> = ({
       {/* Persistent Floating Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-2 px-3.5 py-2.5 rounded-full bg-[#151922] hover:bg-[#1E2533] border border-[#D5AA63]/50 text-[#D5AA63] shadow-[0_4px_20px_rgba(0,0,0,0.6)] hover:shadow-[0_0_15px_rgba(213,170,99,0.35)] transition-all cursor-pointer group"
-        title="Open Assistant Detective AI Companion"
+        className="pointer-events-auto flex items-center space-x-2 px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-full bg-[#151922] hover:bg-[#1E2533] border border-[#D5AA63]/50 text-[#D5AA63] shadow-[0_4px_20px_rgba(0,0,0,0.6)] hover:shadow-[0_0_15px_rgba(213,170,99,0.35)] transition-all cursor-pointer group"
+        title="Open Sherlock Holmes (Assistant Detective)"
       >
-        <div className="w-6 h-6 rounded-full bg-[#D5AA63]/15 flex items-center justify-center text-[#D5AA63] border border-[#D5AA63]/40 group-hover:scale-105 transition-transform">
-          <Bot className="w-3.5 h-3.5" />
+        <div className="w-6 h-6 rounded-full bg-[#D5AA63]/15 flex items-center justify-center text-sm border border-[#D5AA63]/40 group-hover:scale-105 transition-transform">
+          <span role="img" aria-label="detective">🕵️</span>
         </div>
         <span className="font-mono-forensic text-xs font-bold tracking-wide text-[#F0F0F2] group-hover:text-[#D5AA63] transition-colors">
-          Assistant Detective
+          Sherlock Holmes (Assistant Detective)
         </span>
         {isOpen ? (
           <ChevronDown className="w-3.5 h-3.5 text-[#9BA2AE]" />
@@ -296,3 +299,4 @@ export const AssistantDetective: React.FC<AssistantDetectiveProps> = ({
     </div>
   );
 };
+

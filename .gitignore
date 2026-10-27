@@ -38,4 +38,6 @@ frontend/.tmp/
 **/.env
 backend/.env
 frontend/.env
+!.env.example
+!**/.env.example
 *.log

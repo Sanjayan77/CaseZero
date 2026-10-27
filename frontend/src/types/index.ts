@@ -214,3 +214,110 @@ export interface TheoryReview {
   senior_feedback: string;
   questions_to_answer: string[];
 }
+
+export interface FAQItem {
+  id: number;
+  question: string;
+  answer: string;
+  category: string;
+  order_index: number;
+}
+
+export interface SupportTicketItem {
+  id: number;
+  ticket_number: string;
+  user_email: string;
+  user_name: string;
+  subject: string;
+  description: string;
+  category: string;
+  status: string;
+  priority: string;
+  source: string;
+  created_at: string;
+}
+
+export interface SupportChatResponse {
+  session_id: string;
+  answer: string;
+  confidence: string;
+  confirmed_status: string;
+  ticket_created: boolean;
+  ticket?: {
+    ticket_id: number;
+    ticket_number: string;
+    status: string;
+    category: string;
+    subject: string;
+  };
+  is_real_ai: boolean;
+  model_used?: string;
+  mongo_log_id?: string;
+  error?: string;
+}
+
+export interface WeatherAdvisory {
+  status: string;
+  source: string;
+  location: string;
+  temperature_c: number;
+  apparent_temperature_c: number;
+  condition: string;
+  precipitation_mm: number;
+  humidity_percent: number;
+  wind_speed_kmh: number;
+  advisory: string;
+  latency_ms: number;
+  is_live: boolean;
+}
+
+export interface ErrorDocItem {
+  status_code: number;
+  name: string;
+  description: string;
+  casezero_context: string;
+  resolution: string;
+}
+
+export interface SystemHealthData {
+  status: string;
+  service: string;
+  version: string;
+  uptime_seconds: number;
+  timestamp: string;
+  components: {
+    sql_database: {
+      status: string;
+      engine: string;
+      database_file: string;
+      faq_entries_count: number;
+      support_tickets_count: number;
+    };
+    mongodb: {
+      status: string;
+      mode: string;
+      database: string;
+      message?: string;
+      collections?: string[];
+    };
+    gemini_ai: {
+      status: string;
+      provider: string;
+      model: string;
+      real_ai_active: boolean;
+      has_api_key: boolean;
+      message: string;
+    };
+    third_party_api: {
+      status: string;
+      provider: string;
+      latency_ms: number;
+      is_live: boolean;
+    };
+    request_logging: {
+      total_logged_requests: number;
+      recent_entries_buffered: number;
+    };
+  };
+}
+

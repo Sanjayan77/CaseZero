@@ -16,9 +16,16 @@ import { InterrogationPage } from './pages/InterrogationPage';
 import { DeductionPage } from './pages/DeductionPage';
 import { CaseReviewPage } from './pages/CaseReviewPage';
 
+import { FAQPage } from './pages/FAQPage';
+import { SupportPage } from './pages/SupportPage';
+import { NotFoundPage } from './pages/NotFoundPage';
+import { ServerErrorPage } from './pages/ServerErrorPage';
+import { SupportChatWidget } from './components/SupportChatWidget';
+
 export function App() {
   const [user, setUser] = useState<User | null>(null);
   const [currentPage, setCurrentPage] = useState<string>('landing');
+  const [attemptedPath, setAttemptedPath] = useState<string>(window.location.pathname);
   const [, setCases] = useState<CasePublic[]>([]);
   const [caseDetail, setCaseDetail] = useState<CaseDetail | null>(null);
   const [investigation, setInvestigation] = useState<Investigation | null>(null);
@@ -31,6 +38,66 @@ export function App() {
   const [aiStatus, setAIStatus] = useState<AIStatus | null>(null);
   const [isHandbookOpen, setIsHandbookOpen] = useState<boolean>(false);
 
+  const pageToPath: Record<string, string> = {
+    landing: '/',
+    faq: '/faq',
+    support: '/support',
+    notfound: '/404',
+    servererror: '/500',
+    login: '/login',
+    register: '/register',
+    story: '/story',
+    crimescene: '/crimescene',
+    evidence: '/evidence',
+    suspects: '/suspects',
+    interrogation: '/interrogation',
+    deduction: '/deduction',
+    review: '/review',
+  };
+
+  const pathToPage = (path: string): { page: string; isNotFound: boolean } => {
+    const clean = path.replace(/\/$/, '') || '/';
+    if (clean === '/' || clean === '/landing') return { page: 'landing', isNotFound: false };
+    if (clean === '/faq') return { page: 'faq', isNotFound: false };
+    if (clean === '/support') return { page: 'support', isNotFound: false };
+    if (clean === '/404') return { page: 'notfound', isNotFound: false };
+    if (clean === '/500') return { page: 'servererror', isNotFound: false };
+    if (clean === '/login') return { page: 'login', isNotFound: false };
+    if (clean === '/register') return { page: 'register', isNotFound: false };
+    if (clean === '/story') return { page: 'story', isNotFound: false };
+    if (clean === '/crimescene') return { page: 'crimescene', isNotFound: false };
+    if (clean === '/evidence') return { page: 'evidence', isNotFound: false };
+    if (clean === '/suspects') return { page: 'suspects', isNotFound: false };
+    if (clean === '/interrogation') return { page: 'interrogation', isNotFound: false };
+    if (clean === '/deduction') return { page: 'deduction', isNotFound: false };
+    if (clean === '/review') return { page: 'review', isNotFound: false };
+    return { page: 'notfound', isNotFound: true };
+  };
+
+  const handleNavigate = (page: string) => {
+    setCurrentPage(page);
+    const targetPath = pageToPath[page] || `/${page}`;
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState({}, '', targetPath);
+    }
+  };
+
+  // Sync initial URL on mount and handle popstate
+  useEffect(() => {
+    const handleUrl = () => {
+      const currentPath = window.location.pathname;
+      const { page, isNotFound } = pathToPage(currentPath);
+      if (isNotFound) {
+        setAttemptedPath(currentPath);
+      }
+      setCurrentPage(page);
+    };
+
+    handleUrl();
+    window.addEventListener('popstate', handleUrl);
+    return () => window.removeEventListener('popstate', handleUrl);
+  }, []);
+
   // Load user session on mount
   useEffect(() => {
     const initApp = async () => {
@@ -39,7 +106,12 @@ export function App() {
         if (token) {
           const me = await api.getMe();
           setUser(me);
-          setCurrentPage('crimescene');
+          // Only redirect to crimescene if on landing, login, or register
+          const currentPath = window.location.pathname;
+          const { page } = pathToPage(currentPath);
+          if (['landing', 'login', 'register'].includes(page)) {
+            handleNavigate('crimescene');
+          }
         }
       } catch (err) {
         console.warn('Session expired or not found:', err);
@@ -115,7 +187,7 @@ export function App() {
       const inv = await api.startCase('CZ-001');
       setInvestigation(inv);
       await loadInvestigationData(inv.id);
-      setCurrentPage('crimescene');
+      handleNavigate('crimescene');
     } catch (err) {
       console.error('Demo login failed:', err);
     }
@@ -129,15 +201,15 @@ export function App() {
         const active = invList[0];
         setInvestigation(active);
         await loadInvestigationData(active.id);
-        setCurrentPage('crimescene');
+        handleNavigate('crimescene');
       } else {
         const newInv = await api.startCase('CZ-001');
         setInvestigation(newInv);
         await loadInvestigationData(newInv.id);
-        setCurrentPage('crimescene');
+        handleNavigate('crimescene');
       }
     } catch {
-      setCurrentPage('crimescene');
+      handleNavigate('crimescene');
     }
   };
 
@@ -145,7 +217,7 @@ export function App() {
     api.logout();
     setUser(null);
     setInvestigation(null);
-    setCurrentPage('landing');
+    handleNavigate('landing');
   };
 
   const handleEvidenceRefresh = () => {
@@ -156,7 +228,7 @@ export function App() {
 
   const handleSelectSuspectForInterrogation = (suspectId: number) => {
     setSelectedSuspectId(suspectId);
-    setCurrentPage('interrogation');
+    handleNavigate('interrogation');
   };
 
   const handleAccusationSubmitted = () => {
@@ -182,7 +254,40 @@ export function App() {
     return (
       <LandingPage
         onStartDemo={handleStartDemo}
-        onNavigate={setCurrentPage}
+        onNavigate={handleNavigate}
+      />
+    );
+  }
+
+  if (currentPage === 'faq') {
+    return (
+      <FAQPage
+        onNavigate={handleNavigate}
+      />
+    );
+  }
+
+  if (currentPage === 'support') {
+    return (
+      <SupportPage
+        onNavigate={handleNavigate}
+      />
+    );
+  }
+
+  if (currentPage === 'notfound') {
+    return (
+      <NotFoundPage
+        onNavigate={handleNavigate}
+        attemptedPath={attemptedPath}
+      />
+    );
+  }
+
+  if (currentPage === 'servererror') {
+    return (
+      <ServerErrorPage
+        onNavigate={handleNavigate}
       />
     );
   }
@@ -191,7 +296,7 @@ export function App() {
     return (
       <LoginPage
         onLoginSuccess={handleLoginSuccess}
-        onNavigate={setCurrentPage}
+        onNavigate={handleNavigate}
         onStartDemo={handleStartDemo}
       />
     );
@@ -201,10 +306,11 @@ export function App() {
     return (
       <RegisterPage
         onRegisterSuccess={handleLoginSuccess}
-        onNavigate={setCurrentPage}
+        onNavigate={handleNavigate}
       />
     );
   }
+
 
   // Authenticated Investigation Application Shell
   return (
@@ -216,13 +322,13 @@ export function App() {
         onRefreshAIStatus={refreshAIStatus}
         onOpenHandbook={() => setIsHandbookOpen(true)}
         onLogout={handleLogout}
-        onNavigate={setCurrentPage}
+        onNavigate={handleNavigate}
       />
 
       <div className="flex-1 flex overflow-hidden">
         <Sidebar
           currentPage={currentPage}
-          onNavigate={setCurrentPage}
+          onNavigate={handleNavigate}
           investigation={investigation}
           onOpenHandbook={() => setIsHandbookOpen(true)}
         />
@@ -236,7 +342,7 @@ export function App() {
                 suspects={suspects}
                 evidenceList={evidenceList}
                 caseDetail={caseDetail}
-                onNavigate={setCurrentPage}
+                onNavigate={handleNavigate}
                 onSelectSuspectForInterrogation={handleSelectSuspectForInterrogation}
                 onEvidenceDiscovered={handleEvidenceRefresh}
               />
@@ -247,7 +353,7 @@ export function App() {
                 investigation={investigation}
                 evidenceList={evidenceList}
                 onEvidenceDiscovered={handleEvidenceRefresh}
-                onNavigate={setCurrentPage}
+                onNavigate={handleNavigate}
               />
             )}
 
@@ -256,7 +362,7 @@ export function App() {
                 investigationId={investigation.id}
                 evidenceList={evidenceList}
                 onEvidenceUpdated={handleEvidenceRefresh}
-                onNavigate={setCurrentPage}
+                onNavigate={handleNavigate}
               />
             )}
 
@@ -290,7 +396,7 @@ export function App() {
             {currentPage === 'review' && investigation && (
               <CaseReviewPage
                 investigationId={investigation.id}
-                onNavigate={setCurrentPage}
+                onNavigate={handleNavigate}
               />
             )}
           </div>
@@ -305,12 +411,18 @@ export function App() {
         />
       )}
 
+      {/* Persistent Floating Website Support Assistant Widget */}
+      <SupportChatWidget />
+
+
+
       {/* Accessible Detective Handbook Modal */}
       <DetectiveHandbookModal
         isOpen={isHandbookOpen}
         onClose={() => setIsHandbookOpen(false)}
       />
     </div>
+
   );
 }
 

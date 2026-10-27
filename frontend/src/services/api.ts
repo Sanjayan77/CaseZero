@@ -16,7 +16,7 @@ import {
   TheoryReview
 } from '../types';
 
-const API_BASE = '/api';
+const API_BASE = (import.meta.env.VITE_API_BASE_URL ? String(import.meta.env.VITE_API_BASE_URL).replace(/\/$/, '') : '') + '/api';
 
 class ApiService {
   private tokenKey = 'casezero_jwt_token';
@@ -273,6 +273,104 @@ class ApiService {
       }
     );
   }
+
+  // --- Website Support, FAQ, Health & Diagnostics Endpoints ---
+
+  async getFAQs(category?: string, search?: string): Promise<import('../types').FAQItem[]> {
+    const params = new URLSearchParams();
+    if (category) params.append('category', category);
+    if (search) params.append('search', search);
+    const qs = params.toString() ? `?${params.toString()}` : '';
+    return this.request<import('../types').FAQItem[]>(`/support/faqs${qs}`);
+  }
+
+  async chatWithSupportAssistant(
+    message: string,
+    chatHistory?: Array<{ role: string; content: string }>,
+    sessionId?: string,
+    userEmail?: string,
+    userName?: string
+  ): Promise<import('../types').SupportChatResponse> {
+    return this.request<import('../types').SupportChatResponse>('/support/assistant/chat', {
+      method: 'POST',
+      body: JSON.stringify({
+        message,
+        chat_history: chatHistory || [],
+        session_id: sessionId,
+        user_email: userEmail || 'investigator@casezero.local',
+        user_name: userName || 'Investigator',
+      }),
+    });
+  }
+
+  async createSupportTicket(
+    subject: string,
+    description: string,
+    category?: string,
+    priority?: string,
+    userEmail?: string,
+    userName?: string
+  ): Promise<import('../types').SupportTicketItem> {
+    return this.request<import('../types').SupportTicketItem>('/support/tickets', {
+      method: 'POST',
+      body: JSON.stringify({
+        subject,
+        description,
+        category: category || 'Investigation Support',
+        priority: priority || 'normal',
+        user_email: userEmail || 'investigator@casezero.local',
+        user_name: userName || 'Investigator',
+      }),
+    });
+  }
+
+  async getSupportTickets(statusFilter?: string): Promise<import('../types').SupportTicketItem[]> {
+    const qs = statusFilter ? `?status_filter=${encodeURIComponent(statusFilter)}` : '';
+    return this.request<import('../types').SupportTicketItem[]>(`/support/tickets${qs}`);
+  }
+
+  async submitFeedback(
+    rating: number,
+    comments?: string,
+    category?: string,
+    sessionId?: string
+  ): Promise<{ status: string; message: string; record_id: string; is_mock: boolean }> {
+    return this.request<{ status: string; message: string; record_id: string; is_mock: boolean }>('/support/feedback', {
+      method: 'POST',
+      body: JSON.stringify({
+        rating,
+        comments,
+        category: category || 'general',
+        session_id: sessionId,
+      }),
+    });
+  }
+
+  async getWeatherAdvisory(timeout?: number): Promise<import('../types').WeatherAdvisory> {
+    const qs = timeout !== undefined ? `?timeout=${timeout}` : '';
+    return this.request<import('../types').WeatherAdvisory>(`/support/weather${qs}`);
+  }
+
+  async getErrorDocumentation(): Promise<{
+    title: string;
+    site_specific_code: { code: string; name: string; description: string };
+    errors: import('../types').ErrorDocItem[];
+  }> {
+    return this.request<{
+      title: string;
+      site_specific_code: { code: string; name: string; description: string };
+      errors: import('../types').ErrorDocItem[];
+    }>('/errors/documentation');
+  }
+
+  async triggerErrorScenario(code: number): Promise<any> {
+    return this.request<any>(`/errors/trigger/${code}`);
+  }
+
+  async getSystemHealth(): Promise<import('../types').SystemHealthData> {
+    return this.request<import('../types').SystemHealthData>('/health');
+  }
 }
 
 export const api = new ApiService();
+

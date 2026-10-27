@@ -218,3 +218,31 @@ class EvidenceBoardEdge(Base):
     label = Column(String(100), default="related_to") # supports, contradicts, present_at, related_to, unverified
 
     investigation = relationship("Investigation", back_populates="board_edges")
+
+
+class FAQEntry(Base):
+    __tablename__ = "faq_entries"
+
+    id = Column(Integer, primary_key=True, index=True)
+    question = Column(String(300), nullable=False)
+    answer = Column(Text, nullable=False)
+    category = Column(String(100), default="General")
+    order_index = Column(Integer, default=0)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+
+class SupportTicket(Base):
+    __tablename__ = "support_tickets"
+
+    id = Column(Integer, primary_key=True, index=True)
+    ticket_number = Column(String(50), unique=True, index=True, nullable=False)
+    user_email = Column(String(150), default="investigator@casezero.local")
+    user_name = Column(String(100), default="Investigator")
+    subject = Column(String(200), nullable=False)
+    description = Column(Text, nullable=False)
+    category = Column(String(100), default="Investigation Support")
+    status = Column(String(50), default="open")  # open, in_progress, resolved, closed
+    priority = Column(String(50), default="normal")  # low, normal, high, urgent
+    source = Column(String(50), default="assistant_escalation")
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+
