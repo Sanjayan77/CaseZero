@@ -170,11 +170,13 @@ Frontend will be accessible at: `http://127.0.0.1:5173`
 
 ---
 
-## 6. Live Deployment URL Status
+## 6. Live Deployment & Repository URLs
 
-- **Status:** **Not currently deployed to an external cloud production URL.**
+- **GitHub Repository:** [https://github.com/Sanjayan77/CaseZero](https://github.com/Sanjayan77/CaseZero)
+- **Live Frontend Website (Vercel):** [https://frontend-navy-five-76.vercel.app](https://frontend-navy-five-76.vercel.app)
+- **Backend Service (Render):** Deployable via Blueprint at `https://dashboard.render.com/select-repo?type=blueprint` using the included `render.yaml`.
+- **Health-Check Endpoint:** `/api/health`
 - **Active Local Host:** Running locally on `http://127.0.0.1:5173/` (Frontend) and `http://127.0.0.1:8001/` (FastAPI Backend).
-- In accordance with assignment instructions, no fake or unverified live production URL is claimed.
 
 ---
 
