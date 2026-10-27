@@ -16,7 +16,20 @@ import {
   TheoryReview
 } from '../types';
 
-const API_BASE = (import.meta.env.VITE_API_BASE_URL ? String(import.meta.env.VITE_API_BASE_URL).trim().replace(/\/$/, '') : '') + '/api';
+// Resolve API base URL: corrects any transposed typo ('s1la' -> 'sl1a') and defaults to production Render backend
+let rawBase = (import.meta.env.VITE_API_BASE_URL ? String(import.meta.env.VITE_API_BASE_URL).trim() : '').replace(/\/$/, '');
+
+// Fix any typo in env var (s1la -> sl1a)
+if (rawBase.includes('casezero-backend-s1la.onrender.com')) {
+  rawBase = rawBase.replace('casezero-backend-s1la.onrender.com', 'casezero-backend-sl1a.onrender.com');
+}
+
+// In production or deployed environments without explicit localhost base URL, target live backend
+if (!rawBase || (!rawBase.startsWith('http') && typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1')) {
+  rawBase = 'https://casezero-backend-sl1a.onrender.com';
+}
+
+const API_BASE = (rawBase ? rawBase.replace(/\/$/, '') : '') + '/api';
 
 class ApiService {
   private tokenKey = 'casezero_jwt_token';
