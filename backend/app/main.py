@@ -1,3 +1,13 @@
+import sys
+import datetime
+from pathlib import Path
+
+# Ensure backend directory is in sys.path regardless of how uvicorn is invoked
+_current_dir = Path(__file__).resolve().parent
+_backend_dir = _current_dir.parent
+if str(_backend_dir) not in sys.path:
+    sys.path.insert(0, str(_backend_dir))
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
@@ -71,10 +81,26 @@ app.include_router(assistant.router)
 app.include_router(support.router)
 app.include_router(diagnostics_and_errors.router)
 
+@app.get("/")
+def root_endpoint():
+    return {
+        "status": "online",
+        "service": "CaseZero Investigation API",
+        "version": settings.VERSION,
+        "docs": "/docs",
+        "health": "/api/health"
+    }
+
+@app.get("/health")
+def liveness_check():
+    return {"status": "ok"}
+
 @app.get("/api/health")
 async def health_check():
     from app.api.support import comprehensive_health_check
     with SessionLocal() as session:
         return await comprehensive_health_check(session)
+
+
 
 

@@ -16,9 +16,12 @@ if root_env.exists():
 
 def get_db_url() -> str:
     raw_url = os.getenv("DATABASE_URL", "sqlite:///./casezero.db")
-    if raw_url == "sqlite:///./casezero.db":
+    if raw_url.startswith("postgres://"):
+        raw_url = raw_url.replace("postgres://", "postgresql://", 1)
+    if raw_url in ("sqlite:///./casezero.db", "sqlite:///casezero.db"):
         db_path = (BACKEND_DIR / "casezero.db").resolve()
-        return f"sqlite:///{db_path}"
+        db_str = str(db_path).replace("\\", "/")
+        return f"sqlite:///{db_str}" if not db_str.startswith("/") else f"sqlite:////{db_str.lstrip('/')}"
     return raw_url
 
 class Settings(BaseModel):
