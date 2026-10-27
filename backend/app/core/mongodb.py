@@ -9,51 +9,88 @@ class MongoDBManager:
         self.uri = settings.MONGODB_URI
         self.db_name = settings.MONGODB_DB_NAME
         self.client = None
-        self.db = None
-        self.is_connected = False
-        self.is_mock = False
-        self._init_connection()
+        self._db = None
+        self._is_connected = False
+        self._is_mock = False
+        self._initialized = False
+        self.offline_reason = None
+
+    def _ensure_init(self):
+        if not self._initialized:
+            self._initialized = True
+            self._init_connection()
+
+    @property
+    def db(self):
+        self._ensure_init()
+        return self._db
+
+    @db.setter
+    def db(self, val):
+        self._db = val
+
+    @property
+    def is_connected(self):
+        self._ensure_init()
+        return self._is_connected
+
+    @is_connected.setter
+    def is_connected(self, val):
+        self._is_connected = val
+
+    @property
+    def is_mock(self):
+        self._ensure_init()
+        return self._is_mock
+
+    @is_mock.setter
+    def is_mock(self, val):
+        self._is_mock = val
 
     def _init_connection(self):
-        # Allow explicit mock mode via env var or testing
-        if self.uri.startswith("mock://") or self.uri == "mock":
+        # When running in cloud (e.g. Render/PORT set) with default/localhost URI, immediately use mock store without timeout hang
+        is_cloud = bool(os.getenv("RENDER") or os.getenv("PORT"))
+        is_default_local = not self.uri or "localhost" in self.uri or "127.0.0.1" in self.uri
+
+        if self.uri.startswith("mock://") or self.uri == "mock" or (is_cloud and is_default_local):
             try:
                 import mongomock
                 self.client = mongomock.MongoClient()
-                self.db = self.client[self.db_name]
-                self.is_connected = True
-                self.is_mock = True
-                print(f"[MongoDB] Running in Mock mode for test environment.")
+                self._db = self.client[self.db_name]
+                self._is_connected = False
+                self._is_mock = True
+                print(f"[MongoDB] Running in Mock mode (cloud/test environment).")
                 return
             except ImportError:
                 pass
 
         try:
-            self.client = pymongo.MongoClient(self.uri, serverSelectionTimeoutMS=1500)
+            self.client = pymongo.MongoClient(self.uri, serverSelectionTimeoutMS=1000)
             # Test connection with ping
             self.client.admin.command("ping")
-            self.db = self.client[self.db_name]
-            self.is_connected = True
-            self.is_mock = False
+            self._db = self.client[self.db_name]
+            self._is_connected = True
+            self._is_mock = False
             print(f"[MongoDB] Connected successfully to {self.uri}/{self.db_name}")
         except Exception as e:
             # Fallback to in-memory mongomock for graceful offline operation without crashing app
             try:
                 import mongomock
                 self.client = mongomock.MongoClient()
-                self.db = self.client[self.db_name]
-                self.is_connected = False
-                self.is_mock = True
+                self._db = self.client[self.db_name]
+                self._is_connected = False
+                self._is_mock = True
                 self.offline_reason = str(e)
                 print(f"[MongoDB] Live server unreachable ({e}). Using graceful offline mock store.")
             except Exception as ex:
                 self.client = None
-                self.db = None
-                self.is_connected = False
+                self._db = None
+                self._is_connected = False
                 self.offline_reason = str(ex)
 
     def check_health(self) -> Dict[str, Any]:
         """Check live connection status for the diagnostics/health-check endpoint."""
+        self._ensure_init()
         if not self.is_mock and self.is_connected and self.client:
             try:
                 self.client.admin.command("ping")

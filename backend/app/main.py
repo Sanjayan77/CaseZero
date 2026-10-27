@@ -10,10 +10,8 @@ if str(_backend_dir) not in sys.path:
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
 from app.core.config import settings
-from app.core.database import engine, Base, SessionLocal
-from app.game_data.seed_case_001 import seed_case_001
-from app.game_data.seed_faqs import seed_faqs
 from app.core.logging_middleware import RequestLoggingMiddleware
 from app.api import (
     auth,
@@ -31,18 +29,30 @@ from app.api import (
     diagnostics_and_errors
 )
 
-# Initialize database tables
-Base.metadata.create_all(bind=engine)
+def _initialize_database():
+    try:
+        from app.core.database import engine, Base, SessionLocal
+        from app.game_data.seed_case_001 import seed_case_001
+        from app.game_data.seed_faqs import seed_faqs
+        Base.metadata.create_all(bind=engine)
+        with SessionLocal() as db:
+            seed_case_001(db)
+            seed_faqs(db)
+    except Exception as e:
+        print(f"[DB Init Note]: {e}")
 
-# Seed Case CZ-001 and FAQs
-with SessionLocal() as db:
-    seed_case_001(db)
-    seed_faqs(db)
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    import asyncio
+    # Initialize database in background thread so server starts listening instantly
+    asyncio.create_task(asyncio.to_thread(_initialize_database))
+    yield
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
-    description="CaseZero Full-Stack Forensic Detective Web Application API"
+    description="CaseZero Full-Stack Forensic Detective Web Application API",
+    lifespan=lifespan
 )
 
 # Request Logging Middleware (logs timestamps, method, path, status, and duration; masks secrets)
@@ -97,6 +107,7 @@ def liveness_check():
 
 @app.get("/api/health")
 async def health_check():
+    from app.core.database import SessionLocal
     from app.api.support import comprehensive_health_check
     with SessionLocal() as session:
         return await comprehensive_health_check(session)

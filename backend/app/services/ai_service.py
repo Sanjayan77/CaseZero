@@ -4,16 +4,27 @@ import httpx
 from typing import Dict, Any, List, Optional
 from app.core.config import settings
 
-try:
-    from google import genai
-    from google.genai import types
-    HAS_GOOGLE_GENAI = True
-except ImportError:
-    HAS_GOOGLE_GENAI = False
+HAS_GOOGLE_GENAI = None
+genai = None
+types = None
+
+def _check_genai():
+    global HAS_GOOGLE_GENAI, genai, types
+    if HAS_GOOGLE_GENAI is None:
+        try:
+            from google import genai as _genai
+            from google.genai import types as _types
+            genai = _genai
+            types = _types
+            HAS_GOOGLE_GENAI = True
+        except ImportError:
+            HAS_GOOGLE_GENAI = False
+    return HAS_GOOGLE_GENAI
 
 class AIService:
     def __init__(self):
         self.last_interrogation_error = None
+        self._credentials_loaded = False
         self._ensure_credentials()
 
     def _ensure_credentials(self):
@@ -28,7 +39,8 @@ class AIService:
         self.provider = os.getenv("AI_PROVIDER") or settings.AI_PROVIDER or "gemini"
         self.base_url = settings.AI_BASE_URL
         self._genai_client = None
-        if self.api_key and HAS_GOOGLE_GENAI and self.get_provider_name() == "gemini":
+        has_genai = _check_genai()
+        if self.api_key and has_genai and self.get_provider_name() == "gemini":
             try:
                 self._genai_client = genai.Client(api_key=self.api_key)
             except Exception as e:
