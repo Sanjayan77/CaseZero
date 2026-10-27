@@ -14,7 +14,7 @@ services:
       - key: AI_PROVIDER
         value: gemini
       - key: FRONTEND_ORIGIN
-        value: https://casezero.vercel.app
+        value: https://frontend-navy-five-76.vercel.app
       - key: GEMINI_API_KEY
         sync: false
       - key: SECRET_KEY
