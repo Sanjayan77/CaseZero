@@ -16,7 +16,7 @@ import {
   TheoryReview
 } from '../types';
 
-const API_BASE = (import.meta.env.VITE_API_BASE_URL ? String(import.meta.env.VITE_API_BASE_URL).replace(/\/$/, '') : '') + '/api';
+const API_BASE = (import.meta.env.VITE_API_BASE_URL ? String(import.meta.env.VITE_API_BASE_URL).trim().replace(/\/$/, '') : '') + '/api';
 
 class ApiService {
   private tokenKey = 'casezero_jwt_token';
