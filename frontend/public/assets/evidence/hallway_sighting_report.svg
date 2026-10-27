@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bg2" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#181C24"/>
+      <stop offset="100%" stop-color="#0A0C10"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg2)"/>
+  <rect x="160" y="40" width="480" height="520" rx="4" fill="#151922" stroke="#38404E" stroke-width="2"/>
+  <rect x="180" y="60" width="440" height="40" fill="#1F2430" rx="2"/>
+  <text x="200" y="85" font-family="monospace" font-size="14" fill="#D5AA63" font-weight="bold">METROPOLITAN POLICE • WITNESS STATEMENT</text>
+  <text x="200" y="130" font-family="monospace" font-size="11" fill="#9BA2AE">WITNESS: Oliver Grant (Private Secretary)</text>
+  <text x="200" y="150" font-family="monospace" font-size="11" fill="#9BA2AE">TIME RECORDED: 21:40 HRS • CASE REF: CZ-001</text>
+  <line x1="200" y1="165" x2="600" y2="165" stroke="#2B303A" stroke-width="1"/>
+  <text x="200" y="200" font-family="Georgia, serif" font-size="14" fill="#F0F0F2" font-style="italic">"At approximately 20:37, while carrying tea from the</text>
+  <text x="200" y="225" font-family="Georgia, serif" font-size="14" fill="#F0F0F2" font-style="italic">second-floor pantry, I observed a figure in a tailored</text>
+  <text x="200" y="250" font-family="Georgia, serif" font-size="14" fill="#F0F0F2" font-style="italic">midnight tuxedo walking swiftly from the study corridor</text>
+  <text x="200" y="275" font-family="Georgia, serif" font-size="14" fill="#F0F0F2" font-style="italic">towards the terrace French doors. Distinct hexagonal</text>
+  <text x="200" y="300" font-family="Georgia, serif" font-size="14" fill="#F0F0F2" font-style="italic">silver cufflinks caught the wall sconce light."</text>
+  <rect x="200" y="330" width="400" height="60" fill="#D5AA63" fill-opacity="0.1" stroke="#D5AA63" stroke-width="1" rx="4"/>
+  <text x="215" y="355" font-family="monospace" font-size="11" fill="#D5AA63" font-weight="bold">KEY OBSERVATION:</text>
+  <text x="215" y="375" font-family="monospace" font-size="11" fill="#F0F0F2">Time: 20:37 | Clothing: Midnight Tuxedo | Hexagonal Cufflinks</text>
+  <text x="200" y="460" font-family="monospace" font-size="11" fill="#656C7A">Witness Signature:</text>
+  <text x="200" y="500" font-family="Georgia, cursive" font-size="26" fill="#65B8A7">Oliver Grant</text>
+  <line x1="200" y1="510" x2="360" y2="510" stroke="#38404E" stroke-width="1"/>
+  <circle cx="540" cy="480" r="40" fill="none" stroke="#D9535D" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="510" y="485" font-family="monospace" font-size="10" fill="#D9535D" font-weight="bold">VERIFIED</text>
+</svg>

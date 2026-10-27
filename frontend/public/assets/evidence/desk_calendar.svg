@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bg6" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#181C24"/>
+      <stop offset="100%" stop-color="#0A0C10"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg6)"/>
+  <rect x="100" y="60" width="600" height="480" rx="8" fill="#12151D" stroke="#2B303A" stroke-width="2"/>
+  <text x="130" y="105" font-family="monospace" font-size="13" fill="#D5AA63" letter-spacing="2">DESK CRIME SCENE ITEM • EXHIBIT EV-11</text>
+  <text x="130" y="135" font-family="Georgia, serif" font-size="24" font-weight="bold" fill="#F0F0F2">Adrian&apos;s Leather Desk Calendar</text>
+  <rect x="130" y="160" width="540" height="340" fill="#181D27" rx="6" stroke="#38404E"/>
+  <rect x="130" y="160" width="540" height="50" fill="#831843" fill-opacity="0.4" rx="6 6 0 0"/>
+  <text x="160" y="192" font-family="Georgia, serif" font-size="18" font-weight="bold" fill="#F43F5E">SATURDAY, OCTOBER 26</text>
+  <text x="160" y="245" font-family="monospace" font-size="12" fill="#656C7A">19:00 - Guest Arrival (Dinner)</text>
+  <text x="160" y="280" font-family="monospace" font-size="12" fill="#656C7A">20:00 - Retire to Study</text>
+  <rect x="150" y="305" width="500" height="80" fill="#7F1D1D" fill-opacity="0.2" stroke="#DC2626" stroke-width="1.5" rx="4"/>
+  <text x="170" y="335" font-family="monospace" font-size="13" fill="#EF4444" font-weight="bold">20:30 - M.R. (Marcus Reed) Showdown</text>
+  <text x="170" y="365" font-family="Georgia, serif" font-size="14" fill="#FEE2E2" font-style="italic">"Final chance to return Aegis transfers or FBI referral files go at 9am."</text>
+  <text x="160" y="460" font-family="monospace" font-size="11" fill="#D5AA63">Handwriting match: Confirmed victim&apos;s penmanship in black fountain ink.</text>
+</svg>

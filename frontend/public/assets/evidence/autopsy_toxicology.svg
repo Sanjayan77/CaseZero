@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bg7" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#181C24"/>
+      <stop offset="100%" stop-color="#0A0C10"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg7)"/>
+  <rect x="140" y="40" width="520" height="520" rx="6" fill="#141720" stroke="#38404E" stroke-width="2"/>
+  <rect x="140" y="40" width="520" height="50" fill="#1F2430" rx="6 6 0 0"/>
+  <text x="170" y="72" font-family="monospace" font-size="14" fill="#D5AA63" font-weight="bold">OFFICE OF THE CHIEF MEDICAL EXAMINER</text>
+  <text x="170" y="115" font-family="Georgia, serif" font-size="20" font-weight="bold" fill="#F0F0F2">Autopsy &amp; Toxicology Report</text>
+  <line x1="170" y1="130" x2="630" y2="130" stroke="#2B303A" stroke-width="1"/>
+  <text x="170" y="160" font-family="monospace" font-size="11" fill="#9BA2AE">DECEDENT: Adrian Vale | AGE: 58 | CASE: CZ-001</text>
+  <text x="170" y="180" font-family="monospace" font-size="11" fill="#9BA2AE">PATHOLOGIST: Dr. Vance, County Forensic Coroner</text>
+  <rect x="170" y="205" width="460" height="90" fill="#2A1820" stroke="#E11D48" stroke-width="1" rx="4"/>
+  <text x="190" y="230" font-family="monospace" font-size="12" fill="#FB7185" font-weight="bold">PRIMARY CAUSE OF DEATH:</text>
+  <text x="190" y="255" font-family="Georgia, serif" font-size="14" fill="#FFF1F2">Acute cardiac ventricular fibrillation caused by toxic</text>
+  <text x="190" y="275" font-family="Georgia, serif" font-size="14" fill="#FFF1F2">ingestion of Digitalis Purpurea (Cardiac Glycoside).</text>
+  <rect x="170" y="310" width="460" height="75" fill="#19222E" stroke="#38BDF8" stroke-width="1" rx="4"/>
+  <text x="190" y="335" font-family="monospace" font-size="12" fill="#38BDF8" font-weight="bold">ESTIMATED TIME OF DEATH:</text>
+  <text x="190" y="360" font-family="monospace" font-size="15" fill="#F0F0F2" font-weight="bold">20:25 – 20:35 HOURS (October 26)</text>
+  <text x="170" y="430" font-family="Georgia, serif" font-size="12" fill="#9BA2AE">PHYSICAL TRAUMA: None. No defensive wounds, asphyxiation, or blunt impact.</text>
+  <g transform="translate(500, 450)">
+    <rect x="0" y="0" width="120" height="50" fill="#881337" fill-opacity="0.3" stroke="#F43F5E" rx="4"/>
+    <text x="15" y="30" font-family="monospace" font-size="13" fill="#FDA4AF" font-weight="bold">HOMICIDE</text>
+  </g>
+</svg>

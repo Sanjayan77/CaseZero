@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bg5" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#181C24"/>
+      <stop offset="100%" stop-color="#0A0C10"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg5)"/>
+  <rect x="140" y="50" width="520" height="500" rx="6" fill="#13161F" stroke="#2B303A" stroke-width="2"/>
+  <text x="170" y="95" font-family="monospace" font-size="12" fill="#D5AA63" letter-spacing="2">ALIBI CORROBORATION • EXHIBIT EV-10</text>
+  <text x="170" y="125" font-family="Georgia, serif" font-size="22" font-weight="bold" fill="#F0F0F2">Conservatory Mutual Witness Log</text>
+  <line x1="170" y1="145" x2="630" y2="145" stroke="#2B303A" stroke-width="1"/>
+  <rect x="170" y="170" width="460" height="100" fill="#1A212D" rx="4" stroke="#65B8A7" stroke-width="1"/>
+  <text x="190" y="200" font-family="monospace" font-size="12" fill="#65B8A7" font-weight="bold">MUTUAL ALIBI CONFIRMED (20:20 – 20:35)</text>
+  <text x="190" y="225" font-family="Georgia, serif" font-size="13" fill="#F0F0F2">Evelyn Vale &amp; Clara Bennett were continuously engaged</text>
+  <text x="190" y="245" font-family="Georgia, serif" font-size="13" fill="#F0F0F2">in a heated argument regarding Clara&apos;s upcoming exposé.</text>
+  <g transform="translate(170, 300)">
+    <rect x="0" y="0" width="460" height="75" fill="#151922" rx="4" stroke="#2B303A"/>
+    <text x="20" y="28" font-family="monospace" font-size="11" fill="#D5AA63">CORROBORATING SERVANT WITNESS:</text>
+    <text x="20" y="50" font-family="Georgia, serif" font-size="12" fill="#9BA2AE">Pantry maid heard raised voices from conservatory at 20:28.</text>
+  </g>
+  <rect x="170" y="410" width="210" height="45" fill="#164E63" fill-opacity="0.3" stroke="#06B6D4" rx="4"/>
+  <text x="185" y="438" font-family="monospace" font-size="12" fill="#22D3EE" font-weight="bold">EXONERATES: EVELYN</text>
+  <rect x="410" y="410" width="220" height="45" fill="#164E63" fill-opacity="0.3" stroke="#06B6D4" rx="4"/>
+  <text x="425" y="438" font-family="monospace" font-size="12" fill="#22D3EE" font-weight="bold">EXONERATES: CLARA</text>
+</svg>

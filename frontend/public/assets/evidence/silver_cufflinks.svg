@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bg3" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#181C24"/>
+      <stop offset="100%" stop-color="#0A0C10"/>
+    </radialGradient>
+    <linearGradient id="silver" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E2E8F0"/>
+      <stop offset="50%" stop-color="#94A3B8"/>
+      <stop offset="100%" stop-color="#CBD5E1"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg3)"/>
+  <rect x="60" y="40" width="680" height="520" rx="8" fill="#12151D" stroke="#2B303A" stroke-width="2"/>
+  <text x="90" y="85" font-family="monospace" font-size="13" fill="#D5AA63" letter-spacing="2">FORENSIC EVIDENCE EXAM • EXHIBIT EV-08</text>
+  <text x="90" y="115" font-family="Georgia, serif" font-size="24" font-weight="bold" fill="#F0F0F2">Hexagonal Silver Cufflinks (Marcus Reed)</text>
+  <ellipse cx="400" cy="320" rx="260" ry="160" fill="#0D1017" stroke="#222734" stroke-width="4"/>
+  <g transform="translate(300, 310)">
+    <polygon points="0,-60 52,-30 52,30 0,60 -52,30 -52,-30" fill="url(#silver)" stroke="#475569" stroke-width="3"/>
+    <polygon points="0,-42 36,-21 36,21 0,42 -36,21 -36,-21" fill="#090A0D" stroke="#334155" stroke-width="2"/>
+    <circle cx="0" cy="0" r="8" fill="#D5AA63" opacity="0.8"/>
+  </g>
+  <g transform="translate(480, 290)">
+    <polygon points="0,-60 52,-30 52,30 0,60 -52,30 -52,-30" fill="url(#silver)" stroke="#475569" stroke-width="3"/>
+    <polygon points="0,-42 36,-21 36,21 0,42 -36,21 -36,-21" fill="#090A0D" stroke="#334155" stroke-width="2"/>
+    <ellipse cx="15" cy="15" rx="9" ry="6" fill="#D5AA63" fill-opacity="0.7" stroke="#D5AA63"/>
+    <text x="30" y="35" font-family="monospace" font-size="11" fill="#D5AA63">Trace Scotch Residue</text>
+    <line x1="24" y1="20" x2="50" y2="25" stroke="#D5AA63" stroke-width="1"/>
+  </g>
+  <rect x="90" y="460" width="620" height="70" rx="4" fill="#171B24" stroke="#2B303A"/>
+  <text x="110" y="488" font-family="monospace" font-size="11" fill="#65B8A7">LAB ANALYSIS:</text>
+  <text x="110" y="510" font-family="monospace" font-size="12" fill="#F0F0F2">Spectrometry swabbing confirms single malt scotch matching victim&apos;s glass.</text>
+</svg>

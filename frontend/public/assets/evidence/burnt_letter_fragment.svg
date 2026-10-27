@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bg8" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#181C24"/>
+      <stop offset="100%" stop-color="#0A0C10"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg8)"/>
+  <rect x="80" y="50" width="640" height="500" rx="8" fill="#11141C" stroke="#2B303A" stroke-width="2"/>
+  <text x="110" y="95" font-family="monospace" font-size="12" fill="#D5AA63" letter-spacing="2">HEARTH RECOVERY • EXHIBIT EV-13</text>
+  <text x="110" y="125" font-family="Georgia, serif" font-size="24" font-weight="bold" fill="#F0F0F2">Charred Fireplace Paper Fragment</text>
+  <g transform="translate(200, 160)">
+    <path d="M 40 40 Q 180 20 320 60 Q 380 140 360 260 Q 280 290 180 270 Q 60 250 30 180 Z" fill="#262626" stroke="#171717" stroke-width="4"/>
+    <path d="M 60 60 Q 180 45 300 80 Q 350 140 330 230 Q 260 250 180 240 Q 80 220 50 170 Z" fill="#F5E6CA" stroke="#404040" stroke-width="2"/>
+    <path d="M 40 40 Q 120 70 80 120 Q 50 90 40 40 Z" fill="#0A0A0A"/>
+    <path d="M 320 60 Q 360 120 310 160 Q 290 100 320 60 Z" fill="#0A0A0A"/>
+    <path d="M 360 260 Q 280 290 260 240 Q 320 220 360 260 Z" fill="#0A0A0A"/>
+    <text x="90" y="120" font-family="Courier, monospace" font-size="15" fill="#171717" font-weight="bold">...cannot allow you to</text>
+    <text x="80" y="150" font-family="Courier, monospace" font-size="15" fill="#171717" font-weight="bold">dismantle everything we built...</text>
+    <text x="85" y="180" font-family="Courier, monospace" font-size="15" fill="#171717" font-weight="bold">...tonight will end this...</text>
+  </g>
+  <rect x="110" y="460" width="580" height="65" rx="4" fill="#161A23" stroke="#2B303A"/>
+  <text x="130" y="488" font-family="monospace" font-size="11" fill="#D5AA63">FORENSIC INK ANALYSIS:</text>
+  <text x="130" y="508" font-family="monospace" font-size="12" fill="#F0F0F2">Typewriter mechanical strike defect matches Marcus Reed&apos;s office Adler typewriter.</text>
+</svg>
